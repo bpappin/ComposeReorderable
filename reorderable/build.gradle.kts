@@ -16,6 +16,9 @@ kotlin {
         browser()
         binaries.executable()
     }
+    macosArm64()
+    macosX64()
+    ios()
     sourceSets {
         val commonMain by getting {
             dependencies {
