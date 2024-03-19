@@ -54,7 +54,7 @@ fun BrowserViewportWindow(
         fillViewportSize()
     }
 
-    ComposeWindow().apply {
+    ComposeWindow(CANVAS_ELEMENT_ID) {}.apply {
         window.addEventListener("resize", {
             canvas.fillViewportSize()
             layer.layer.attachTo(canvas)
@@ -69,9 +69,5 @@ fun BrowserViewportWindow(
                     ?: document.createElement("title").also { htmlHeadElement.appendChild(it) }
                 ) as HTMLTitleElement
         htmlTitleElement.textContent = title
-
-        setContent {
-            content(this)
-        }
     }
 }

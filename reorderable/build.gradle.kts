@@ -1,4 +1,6 @@
 import org.jetbrains.compose.ComposeBuildConfig.composeVersion
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnLockMismatchReport
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 
 plugins {
     kotlin("multiplatform")
@@ -78,6 +80,17 @@ publishing {
     }
 }
 
-signing {
-    sign(publishing.publications)
+//signing {
+//    sign(publishing.publications)
+//}
+
+rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin::class.java) {
+    rootProject.the<YarnRootExtension>().yarnLockMismatchReport =
+        YarnLockMismatchReport.WARNING // NONE | FAIL
+    rootProject.the<YarnRootExtension>().reportNewYarnLock = false // true
+    rootProject.the<YarnRootExtension>().yarnLockAutoReplace = false // true
+}
+
+rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin::class.java) {
+    rootProject.the<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension>().nodeVersion = "16.0.0"
 }
